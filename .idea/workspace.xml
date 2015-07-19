@@ -2,7 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="3b5b11c6-bd83-471b-8566-afed21a8e39c" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/styles/main.css" afterPath="$PROJECT_DIR$/app/styles/main.css" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/scripts/main.js" afterPath="$PROJECT_DIR$/app/scripts/main.js" />
     </list>
     <ignored path="SmoveWeb.iws" />
@@ -47,8 +46,8 @@
       <file leaf-file-name="main.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/scripts/main.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.80905235">
-              <caret line="160" column="16" selection-start-line="160" selection-start-column="16" selection-end-line="160" selection-end-column="16" />
+            <state vertical-scroll-proportion="0.8727016">
+              <caret line="166" column="3" selection-start-line="166" selection-start-column="3" selection-end-line="166" selection-end-column="3" />
               <folding />
             </state>
           </provider>
@@ -228,8 +227,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/app/scripts/main.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.80905235">
-          <caret line="160" column="16" selection-start-line="160" selection-start-column="16" selection-end-line="160" selection-end-column="16" />
+        <state vertical-scroll-proportion="0.8727016">
+          <caret line="166" column="3" selection-start-line="166" selection-start-column="3" selection-end-line="166" selection-end-column="3" />
           <folding />
         </state>
       </provider>

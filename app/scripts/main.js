@@ -53,9 +53,8 @@ game.enemiesMove = function() {
   setInterval(function() {
     for (var i = 0; i < enemies.length; i++) {
       enemies[i].move();
-
     }
-  }, 20);
+  }, 30);
 };
 
 
@@ -162,7 +161,7 @@ $(document).one("fail", function() {
 });
 
 $(function() {
-  setInterval(game.refresh, 20);
+  setInterval(game.refresh, 30);
   game.addNewEnemies(new Enemy(200 + game.spacing / 2, game.spacing / 2, 200, 1));
   game.enemiesMove();
 });
