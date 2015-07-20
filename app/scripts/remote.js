@@ -5,7 +5,7 @@
 
   root = typeof exports !== "undefined" && exports !== null ? exports : this;
 
-  _ref_url = "https://kehao.firebaseio.com/";
+  _ref_url = "https://smoveweb.firebaseio.com/";
 
   _name_input_id = "";
 
