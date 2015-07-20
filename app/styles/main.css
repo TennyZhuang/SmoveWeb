@@ -13,7 +13,18 @@ canvas {
   background: #fff9c4;
 }
 
+#loginDiv{
+  width: 600px;
+  height: 600px;
+  margin: 0 auto;
+  float: top;
+  background-color: #888888;
+  text-align: center;
+  vertical-align: center;
+  }
+#nameInput{
 
+}
 /*.hero-unit {*/
   /*margin: 50px auto 0 auto;*/
   /*width: 300px;*/

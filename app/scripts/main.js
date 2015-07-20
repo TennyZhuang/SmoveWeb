@@ -19,6 +19,7 @@ function Game(num, size) {
 }
 
 Game.prototype.refresh = function() {
+  // draw map
   ctx.fillStyle = '#fff9c4';
   ctx.fillRect(0, 0, 600, 600);
 
@@ -36,13 +37,26 @@ Game.prototype.refresh = function() {
     ctx.lineTo(end, 400);
     ctx.stroke();
   }
-
   ctx.closePath();
 
   chess.append();
+  // add players
+  var x,y;
+  for (x = 0;x<this.lineCount;x++) {
+    for (y = 0;y<this.lineCount;y++) {
+      var p = ChessPosition(x,y)
+      if ( p !== 0) {
+        //console.log(x,y);
+        var player = new Chess(x,y)
+        player.append() 
+      };
+    };
+  };
+  // end of add
+
   for (i = 0; i < this.enemies.length; i++) {
     if (this.enemies[i]) {
-      console.log(i);
+      //console.log(i);
       this.enemies[i].append();
     }
   }
@@ -127,9 +141,14 @@ function Chess(x, y) {
     this.x = parseInt(Math.random() * this.num + 3);
     this.y = parseInt(Math.random() * this.num + 3);
   }
+  //init pos
+  ChessPosition(this.x,this.y,_Player.name)
 }
 
-Chess.prototype.append = function() {
+Chess.prototype.append = function(color) {
+  var fillStyle = 'white'
+  if (color != undefined)
+    fillStyle = color
   ctx.beginPath();
   ctx.arc(200 + game.spacing * (this.x + 0.5), 200 + game.spacing * (this.y + 0.5), game.spacing * 0.35, 0, 2 * Math.PI);
   ctx.fillStyle = 'white';
@@ -138,30 +157,41 @@ Chess.prototype.append = function() {
 };
 
 Chess.prototype.move = function(type) {
-  switch(type) {
+  // add remote push
+  var moveTo  =function(x,y)
+  {
+    if(ChessPosition(x,y) !== 0) return;
+    ChessPosition(this.x,this.y,0);
+    this.x = x;
+    this.y = y;
+    ChessPosition(this.x,this.y,_Player.name)
+  }
+  
+    switch(type) {
     case 1:
       // Up
       if (this.y === 0) return;
-      this.y -= 1;
+      moveTo.call(this,this.x,this.y-1)
       break;
     case 2:
       // Right
       if (this.x === game.lineCount - 1) return;
-      this.x += 1;
+      moveTo.call(this,this.x+1,this.y)
       break;
     case 3:
       // Down
       if (this.y === game.lineCount - 1) return;
-      this.y += 1;
+      moveTo.call(this,this.x,this.y+1)
       break;
     case 0:
       // LEFT
       if (this.x === 0) return;
-      this.x -= 1;
+      moveTo.call(this,this.x-1,this.y)
       break;
     default:
       return;
   }
+  // end of add 
 };
 
 document.addEventListener('keydown', function(event) {
@@ -225,9 +255,9 @@ Enemy.prototype.move = function() {
 };
 
 $(document).one('fail', function() {
-  alert('fail');
+  //alert('fail');
 });
 
 $(function() {
-  game.run();
+  
 });

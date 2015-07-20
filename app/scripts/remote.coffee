@@ -1,11 +1,11 @@
-root  = exports ? this
+root = exports ? this
 # global settings
 _ref_url = "https://kehao.firebaseio.com/"
 _name_input_id = ""
 _usernum_to_colnum = {0:4,1:4,2:5,3:6,4:7,5:7}
 _max_N = 4
 ###
-	UserList 	#idxxx :{name}
+	_UserList 	#idxxx :{name}
 				#idxxx :{name}
  	ChessRef	N --- 1..4
 				0:player
@@ -22,40 +22,61 @@ init  = ->
 	root.ChessRef = BaseRef.child('Chess')
 	# the current player info global vars
 	# Auto remove when disconnect
-	# To distinguish users and the current player
+	# To distingCuish users and the current player
 	root.PlayerRef = UserListRef.push()
-	PlayerRef.set({name:""})
+	PlayerRef.set({name:"",state:"online"})
 	PlayerRef.onDisconnect().remove()
-
+	# globale vars
+	root._UserList = undefined
+	root._Chess = undefined
+	root._Player = undefined
 	# keep a userlist global
 	UserListRef.on 'value',(snapshot) ->
-		root.userList = []
+		root._UserList = []
 		snapshot.forEach (childSnapshot) ->
-			userList.push(childSnapshot.val())
+			_UserList.push(childSnapshot.val())
 			return false
 		updateUserList()
-		n = userList.length
-		console.log(userList)
-	# keep a Chess
+		n = _UserList.length
+		# console.log(_UserList)
+	# keep a _Chess
 	ChessRef.on 'value',(snapshot) ->
-		#root.Chess = {}
-		root.Chess = snapshot.val()
+		root._Chess = snapshot.val()
 		updateChess()
 	# keep player
 	PlayerRef.on 'value',(snapshot) ->
-		root.Player = snapshot.val()
-	# get the DOM Elememts
-	
+		root._Player = snapshot.val()
+	#hide the div to login
+	login()
+	resetChess(4)
 
-	test()
+login = ->
+	$('canvas').hide()
+	LogDiv = $('<div>').attr('id','loginDiv')
+	LogDiv.append("<input type='text' id='nameInput' placeholder='enter a username...'>")
+	$('body').append(LogDiv)
+	nameField  = $('#nameInput')
+	nameField.focus()
+	nameField.blur ->
+		nameField.focus()
+	nameField.keypress (e)->
+		if e.keyCode == 13
+			name = nameField.val()
+			setName(name)
+			$(loginDiv).remove()
+			$('#canvas').show()
+			game.run();
+
+
+
+
 test = ->
 	log = (arg...)->
 		for i in arg
 			console.log i
 
-resetChess = (n)->
-	ChessRef.set({N:n})
-	cols= _usernum_to_colnum[n]
+resetChess = (cols)->
+	ChessRef.set({cols:cols})
 	for x in [0..cols-1]
 		for y in [0..cols-1]
 			m = x+y*cols
@@ -63,14 +84,14 @@ resetChess = (n)->
 
 
 
-root.updateUserList = ->
-	# add function to update UserList show
+window.updateUserList = ->
+	# add function to update _UserList show
 	return 
-root.updateChess = ->
-	# on Chess change update Chess
+window.updateChess = ->
+	# on _Chess change update _Chess
 	return 
 
-root.setName = (name) ->
+window.setName = (name) ->
 	#set the player name and chang the playerName v
 	if (name == "" || name  == undefined)
 		console.error('failed to set name')
@@ -79,14 +100,14 @@ root.setName = (name) ->
 		PlayerRef.update({name:name})
 		return true
 
-root.getUserList = ->
-	return userList
-root.getChess = ->
-	return Chess
-root.getPlayer = ->
-	return player
+window.getUserList = ->
+	return _UserList
+window.getChess = ->
+	return _Chess
+window.getPlayer = ->
+	return _Player
 
-root.getUserRefByName = (name) ->
+window.getUserRefByName = (name) ->
 	# get the ref of the user whit the name 
 	UserListRef.on 'value',(snapshot) ->
 		ref = null
@@ -96,16 +117,20 @@ root.getUserRefByName = (name) ->
 			else 
 				return false
 
-root.ChessPosition = (x,y,set) ->
+window.ChessPosition = (x,y,set) ->
 	# return the val if set is undefined
+	n = x+(_Chess.cols*y)
 	if set == undefined
-		return 	Chess[x+(Chess.N*y)]
+		return 	_Chess[n]
 	else
-		n = x+(_usernum_to_colnum[Chess.N]*y)
+		n = x+(_Chess.cols*y)
 		ChessRef.child(n).set(set)
 
+window.PlayerState = (s) ->
+	if s == undefined
+		return CurrentState
+	else 
+		PlayerRef.update({state:s})
 
 
-
-window.onload = ->
- init()
+init()
