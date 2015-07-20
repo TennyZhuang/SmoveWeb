@@ -15,7 +15,7 @@ function rowColToXY(i) {
 function Game(num, size, enemiesList) {
   this.num = num;
   this.enemies = [];
-  this.lineCount = num + 3;
+  this.lineCount = 6;
   this.size = size;
   this.margin = size * 1 / 3;
   this.spacing = size * 1 / 3 / this.lineCount;
@@ -86,7 +86,7 @@ function randGenerator(n, range) {
 
 Game.prototype.addNewEnemies = function(n) {
   console.log(cnt);
-  console.log(this.enemiesList[cnt])
+  console.log(this.enemiesList[cnt]);
   for (var i = 0; i < this.enemiesList[cnt].directions.length; i++) {
     var direction = parseInt(this.enemiesList[cnt].directions[i] / this.lineCount);
     var position = this.enemiesList[cnt].directions[i] % this.lineCount;
