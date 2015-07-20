@@ -6,7 +6,7 @@ from copy import deepcopy
 waves = []
 wave = {'speed': 0, 'directions': []}
 arr = []
-for i in range(4 * 4):
+for i in range(6 * 6):
     arr += [i]
     # dir  = [0,1,2,...,15]
 

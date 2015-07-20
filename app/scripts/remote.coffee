@@ -1,6 +1,6 @@
 root = exports ? this
 # global settings
-_ref_url = "https://kehao.firebaseio.com/"
+_ref_url = "https://smoveweb.firebaseio.com/"
 _name_input_id = ""
 _usernum_to_colnum = {0:4,1:4,2:5,3:6,4:7,5:7}
 _max_N = 4
