@@ -48,7 +48,7 @@ init  = ->
 		root._Player = snapshot.val()
 	#hide the div to login
 	login()
-	resetChess(4)
+	resetChess(6)
 
 login = ->
 	$('canvas').hide()

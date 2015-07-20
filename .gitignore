@@ -4,4 +4,5 @@ dist
 .sass-cache
 bower_components
 test/bower_components
-.idea
+.ideaapp/scripts/make.sh
+app/scripts/make.sh

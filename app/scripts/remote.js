@@ -63,7 +63,7 @@
       return root._Player = snapshot.val();
     });
     login();
-    return resetChess(4);
+    return resetChess(6);
   };
 
   login = function() {
