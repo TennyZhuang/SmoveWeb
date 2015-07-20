@@ -1,6 +1,6 @@
 'use strict';
 var canvas = document.getElementById('canvas');
-var ctx = canvas.getContext("2d");
+var ctx = canvas.getContext('2d');
 var chesses = [];
 var chess = new Chess(0, 0);
 var game = new Game(1, 600);
@@ -9,7 +9,7 @@ function rowColToXY(i) {
   return game.margin + (0.5 + i) * game.spacing;
 }
 
-function Game(num, size, chesses) {
+function Game(num, size) {
   this.num = num;
   this.enemies = [];
   this.lineCount = num + 3;
@@ -19,10 +19,10 @@ function Game(num, size, chesses) {
 }
 
 Game.prototype.refresh = function() {
-  ctx.fillStyle = "#fff9c4";
+  ctx.fillStyle = '#fff9c4';
   ctx.fillRect(0, 0, 600, 600);
 
-  ctx.fillStyle = "#f57f17";
+  ctx.fillStyle = '#f57f17';
   ctx.fillRect(200,200,200,200);
 
   ctx.strokeStyle = 'white';
@@ -132,7 +132,7 @@ function Chess(x, y) {
 Chess.prototype.append = function() {
   ctx.beginPath();
   ctx.arc(200 + game.spacing * (this.x + 0.5), 200 + game.spacing * (this.y + 0.5), game.spacing * 0.35, 0, 2 * Math.PI);
-  ctx.fillStyle = "white";
+  ctx.fillStyle = 'white';
   ctx.fill();
   ctx.stroke();
 };
@@ -181,7 +181,7 @@ function Enemy(x, y, speed, direction) {
 Enemy.prototype.append = function() {
   ctx.beginPath();
   ctx.arc(this.x, this.y, game.spacing * 0.35, 0, 2 * Math.PI);
-  ctx.fillStyle = "black";
+  ctx.fillStyle = 'black';
   ctx.fill();
   ctx.stroke();
 };
@@ -219,13 +219,13 @@ Enemy.prototype.move = function() {
   var deltaY = this.y - rowColToXY(chess.y);
   var radiusSum = game.spacing * 0.7;
   if (deltaX * deltaX + deltaY * deltaY <= radiusSum * radiusSum) {
-    $(document).trigger("fail");
+    $(document).trigger('fail');
   }
   return true;
 };
 
-$(document).one("fail", function() {
-  alert("fail");
+$(document).one('fail', function() {
+  alert('fail');
 });
 
 $(function() {
