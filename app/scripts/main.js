@@ -111,8 +111,9 @@ Game.prototype.addNewEnemies = function(n) {
     }
     //console.log(x, y);
     this.enemies.push(new Enemy(x, y, this.enemiesList[cnt].speed, direction));
-    cnt++;
   }
+
+  cnt++;
 
   //var cols = randGenerator(n, game.lineCount);
   //var rows = randGenerator(n, game.lineCount);

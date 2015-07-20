@@ -2,10 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="3b5b11c6-bd83-471b-8566-afed21a8e39c" name="Default" comment="">
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/scripts/level.json" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/level.json" afterPath="$PROJECT_DIR$/app/level.json" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gitignore" afterPath="$PROJECT_DIR$/.gitignore" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/scripts/main.js" afterPath="$PROJECT_DIR$/app/scripts/main.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/scripts/remote.js" afterPath="$PROJECT_DIR$/app/scripts/remote.js" />
     </list>
     <ignored path="SmoveWeb.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -49,8 +47,8 @@
       <file leaf-file-name="main.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/scripts/main.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.35785007">
-              <caret line="165" column="52" selection-start-line="165" selection-start-column="52" selection-end-line="165" selection-end-column="52" />
+            <state vertical-scroll-proportion="0.79558825">
+              <caret line="115" column="8" selection-start-line="115" selection-start-column="8" selection-end-line="115" selection-end-column="8" />
               <folding />
             </state>
           </provider>
@@ -359,8 +357,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/app/scripts/main.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.35785007">
-          <caret line="165" column="52" selection-start-line="165" selection-start-column="52" selection-end-line="165" selection-end-column="52" />
+        <state vertical-scroll-proportion="0.79558825">
+          <caret line="115" column="8" selection-start-line="115" selection-start-column="8" selection-end-line="115" selection-end-column="8" />
           <folding />
         </state>
       </provider>

@@ -6,3 +6,4 @@ bower_components
 test/bower_components
 .ideaapp/scripts/make.sh
 app/scripts/make.sh
+.DS_Store
