@@ -89,20 +89,6 @@
     });
   };
 
-  test = function() {
-    var log;
-    return log = function() {
-      var arg, i, j, len, results;
-      arg = 1 <= arguments.length ? slice.call(arguments, 0) : [];
-      results = [];
-      for (j = 0, len = arg.length; j < len; j++) {
-        i = arg[j];
-        results.push(console.log(i));
-      }
-      return results;
-    };
-  };
-
   resetChess = function(cols) {
     var j, m, ref1, results, x, y;
     ChessRef.set({

@@ -109,7 +109,7 @@ Game.prototype.addNewEnemies = function(n) {
         x = rowColToXY(position);
         y = game.size - 30;
     }
-    console.log(x, y);
+    //console.log(x, y);
     this.enemies.push(new Enemy(x, y, this.enemiesList[cnt].speed, direction));
     cnt++;
   }
@@ -163,7 +163,7 @@ Game.prototype.enemiesMove = function() {
 Game.prototype.run = function() {
   var that = this;
   setInterval(that.refresh.bind(that), 30);
-  setInterval(that.addNewEnemies.bind(that, 3, 300), 3000);
+  setInterval(that.addNewEnemies.bind(that, 3), 3000);
   this.enemiesMove();
 };
 
