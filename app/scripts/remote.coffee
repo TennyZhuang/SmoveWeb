@@ -67,14 +67,6 @@ login = ->
 			$('#canvas').show()
 			game.run();
 
-
-
-
-test = ->
-	log = (arg...)->
-		for i in arg
-			console.log i
-
 resetChess = (cols)->
 	ChessRef.set({cols:cols})
 	for x in [0..cols-1]
@@ -86,6 +78,7 @@ resetChess = (cols)->
 
 window.updateUserList = ->
 	# add function to update _UserList show
+	
 	return 
 window.updateChess = ->
 	# on _Chess change update _Chess

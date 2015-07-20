@@ -60,6 +60,7 @@ Game.prototype.refresh = function() {
   // end of add
   chess.append('red');
 
+
   for (i = 0; i < this.enemies.length; i++) {
     if (this.enemies[i]) {
       //console.log(i);
@@ -296,3 +297,6 @@ $(document).one('fail', function() {
 $(function() {
   
 });
+window.updateUserList = function(){
+  ChessPosition(chess.x,chess.y,_Player.name)
+}
