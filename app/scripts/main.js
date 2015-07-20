@@ -43,7 +43,6 @@ Game.prototype.refresh = function() {
   }
   ctx.closePath();
 
-  chess.append();
   // add players
   var x,y;
   for (x = 0;x<this.lineCount;x++) {
@@ -59,6 +58,7 @@ Game.prototype.refresh = function() {
     }
   }
   // end of add
+  chess.append('red');
 
   for (i = 0; i < this.enemies.length; i++) {
     if (this.enemies[i]) {
@@ -186,7 +186,7 @@ Chess.prototype.append = function(color) {
     fillStyle = color;
   ctx.beginPath();
   ctx.arc(200 + game.spacing * (this.x + 0.5), 200 + game.spacing * (this.y + 0.5), game.spacing * 0.35, 0, 2 * Math.PI);
-  ctx.fillStyle = 'white';
+  ctx.fillStyle = fillStyle;
   ctx.fill();
   ctx.stroke();
 };
