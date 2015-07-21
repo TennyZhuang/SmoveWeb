@@ -4,7 +4,7 @@
 
   root = typeof exports !== "undefined" && exports !== null ? exports : this;
 
-  _ref_url = "https://kehao.firebaseio.com/";
+  _ref_url = "https://smoveweb.firebaseio.com/";
 
   _name_input_id = "";
 
@@ -35,6 +35,7 @@
     root.BaseRef = new Firebase(_ref_url);
     root.UserListRef = BaseRef.child('UserList');
     root.ChessRef = BaseRef.child('Chess');
+    root.TimeRef = BaseRef.child('Time');
     root.PlayerRef = UserListRef.push();
     PlayerRef.set({
       name: "",
@@ -95,10 +96,8 @@
 
   window.onTimeRun = function(ts, fn) {
     var timeNow;
-    console.log('ts:' + ts);
     timeNow = new Date().getTime();
-    console.log('current: ' + timeNow);
-    return window.setTimeout(Alert, ts - timeNow);
+    return window.setTimeout(fn, ts - timeNow);
   };
 
   resetChess = function(cols) {

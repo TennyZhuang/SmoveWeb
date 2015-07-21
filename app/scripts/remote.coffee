@@ -1,6 +1,6 @@
 root = exports ? this
 # global settings
-_ref_url = "https://kehao.firebaseio.com/"
+_ref_url = "https://smoveweb.firebaseio.com/"
 _name_input_id = ""
 _usernum_to_colnum = {0:4,1:4,2:5,3:6,4:7,5:7}
 _max_N = 4
@@ -20,6 +20,7 @@ init  = ->
 	root.BaseRef = new Firebase(_ref_url)
 	root.UserListRef = BaseRef.child('UserList')
 	root.ChessRef = BaseRef.child('Chess')
+	root.TimeRef = BaseRef.child('Time')
 	# the current player info global vars
 	# Auto remove when disconnect
 	# To distingCuish users and the current player
@@ -72,10 +73,10 @@ window.Alert  = ->
 	alert('hello')
 
 window.onTimeRun = (ts,fn) ->
-	console.log 'ts:'+ts
+	#console.log 'ts:'+ts
 	timeNow = new Date().getTime()
-	console.log 'current: '+timeNow
-	window.setTimeout(Alert, ts-timeNow)
+	#console.log 'current: '+timeNow
+	window.setTimeout(fn, ts-timeNow)
 
 
 resetChess = (cols)->
