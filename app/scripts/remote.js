@@ -143,7 +143,12 @@
       }
       return Ready;
     };
-    endGame = function() {};
+    endGame = function() {
+      var overLay;
+      overLay = $('<div>').addClass('cover');
+      $('body').append(overLay);
+      return alert('gameOver');
+    };
     if (gameProcess() === 0) {
       console.log('isready', isReady());
       if (isReady()) {

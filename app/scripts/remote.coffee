@@ -109,6 +109,9 @@ window._updateUserList = ->
 		return Ready
 	endGame = ->
 		#$('#canvas').hide()
+		overLay = $('<div>').addClass('cover')
+		$('body').append(overLay)
+		alert('gameOver')
 
 	if gameProcess() == 0
 		console.log('isready',isReady())
