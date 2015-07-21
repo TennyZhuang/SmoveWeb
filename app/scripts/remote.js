@@ -84,10 +84,21 @@
         name = nameField.val();
         setName(name);
         setState('ready');
-        $(loginDiv).remove();
-        return $('#canvas').show();
+        return $(loginDiv).append($('<p>').append("Hello " + name + " please wait for other players"));
       }
     });
+  };
+
+  window.Alert = function() {
+    return alert('hello');
+  };
+
+  window.onTimeRun = function(ts, fn) {
+    var timeNow;
+    console.log('ts:' + ts);
+    timeNow = new Date().getTime();
+    console.log('current: ' + timeNow);
+    return window.setTimeout(Alert, ts - timeNow);
   };
 
   resetChess = function(cols) {
@@ -119,7 +130,7 @@
   };
 
   window._updateUserList = function() {
-    var isReady;
+    var alive, endGame, i, isReady, j, len;
     console.log('_updateUserList', _UserList);
     isReady = function() {
       var Ready, i, j, len;
@@ -133,11 +144,30 @@
       }
       return Ready;
     };
+    endGame = function() {
+      return $('#canvas').hide();
+    };
     if (gameProcess() === 0) {
       console.log('isready', isReady());
       if (isReady()) {
-        alert('game run');
+        $(loginDiv).remove();
+        $('#canvas').show();
+        gameProcess(1);
+        setState('alive');
         game.run();
+      }
+    }
+    if (gameProcess() === 0) {
+      alive = 0;
+      for (j = 0, len = _UserList.length; j < len; j++) {
+        i = _UserList[j];
+        if (i.state === 'alive') {
+          alive++;
+        }
+      }
+      console.log('alive:' + alive);
+      if (alive === 1) {
+        endGame();
       }
     }
   };

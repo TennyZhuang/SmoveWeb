@@ -58,7 +58,7 @@ Game.prototype.refresh = function() {
     }
   }
   // end of add
-  chess.append('red');
+  chess.append('#ff5252');
 
 
   for (i = 0; i < this.enemies.length; i++) {
@@ -291,7 +291,8 @@ Enemy.prototype.move = function() {
 };
 
 $(document).one('fail', function() {
-  //alert('fail');
+  alert('you failed')
+  document.process.removeListener('keydown');
 });
 
 $(function() {

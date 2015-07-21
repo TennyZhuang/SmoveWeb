@@ -63,13 +63,19 @@ login = ->
 		nameField.focus()
 	nameField.keypress (e)->
 		if e.keyCode == 13
-			gameProcess(0)
+			gameProcess(0)# set the process and wait the users
 			name = nameField.val()
 			setName(name)
 			setState('ready')
-			$(loginDiv).remove()
-			$('#canvas').show()
-			 # set the process and wait the users
+			$(loginDiv).append($('<p>').append("Hello #{name} please wait for other players"))
+window.Alert  = ->
+	alert('hello')
+
+window.onTimeRun = (ts,fn) ->
+	console.log 'ts:'+ts
+	timeNow = new Date().getTime()
+	console.log 'current: '+timeNow
+	window.setTimeout(Alert, ts-timeNow)
 
 
 resetChess = (cols)->
@@ -100,12 +106,31 @@ window._updateUserList = ->
 			if i.state != 'ready'
 				Ready = false
 		return Ready
+	endGame = ->
+		$('#canvas').hide()
 
 	if gameProcess() == 0
 		console.log('isready',isReady())
 		if isReady()
-			alert('game run')
+			#alert('game run')
+			$(loginDiv).remove()
+			$('#canvas').show()
+			gameProcess(1)
+			setState('alive')
 			game.run()
+
+
+	if gameProcess() == 0
+		alive = 0
+		for i in _UserList
+			if i.state == 'alive'
+				alive++
+		console.log ('alive:'+alive)
+		if alive == 1
+			endGame()
+
+
+
 	return 
 window._updateChess = ->
 	# on _Chess change update _Chess
