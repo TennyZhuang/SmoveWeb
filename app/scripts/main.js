@@ -50,6 +50,7 @@ Game.prototype.refresh = function() {
       var p = ChessPosition(x,y);
       if ( p !== 0) {
         //console.log(x,y);
+
         (function() {
           var player = new Chess(x,y);
           player.append();
@@ -230,12 +231,14 @@ Chess.prototype.move = function(type) {
   // end of add 
 };
 
-document.addEventListener('keydown', function(event) {
+function keyMove(event){
   var key = event.keyCode;
   if (key < 37 || key > 40) return;
 
   chess.move(key - 37);
-});
+}
+
+document.addEventListener('keydown', keyMove);
 
 function Enemy(x, y, speed, direction) {
   this.x = x;
@@ -292,7 +295,7 @@ Enemy.prototype.move = function() {
 
 $(document).one('fail', function() {
   alert('you failed')
-  document.process.removeListener('keydown');
+  document.removeEventListener('keydown', keyMove);
 });
 
 $(function() {
