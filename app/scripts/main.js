@@ -2,6 +2,7 @@
 var canvas = document.getElementById('canvas');
 var ctx = canvas.getContext('2d');
 var chess = new Chess(0, 0);
+var colors = ['#fffde7', '#fff3e0', '#fbe9e7', '#ede7f6', '#e1f5fe', '#e0f7fa'];
 var game;
 var cnt = 0;
 $.getJSON('../level.json', function(data) {
@@ -24,7 +25,7 @@ function Game(num, size, enemiesList) {
 
 Game.prototype.refresh = function() {
   // draw map
-  ctx.fillStyle = '#fff9c4';
+  ctx.fillStyle = colors[parseInt(cnt / 5) % 6];
   ctx.fillRect(0, 0, 600, 600);
 
   ctx.fillStyle = '#f57f17';
@@ -49,16 +50,16 @@ Game.prototype.refresh = function() {
     for (y = 0;y<this.lineCount;y++) {
       var p = ChessPosition(x,y);
       if ( p !== 0) {
-        //console.log(x,y);
         (function(p) {
+          var player;
           if (p == -1){
-            var player = new Chess(x,y);
+            player = new Chess(x,y);
             player.append('#616161');
-            }
-          else{
-            var player = new Chess(x,y);
+          }
+          else {
+            player = new Chess(x,y);
             player.append();
-            }
+          }
         })(p);
       }
     }
@@ -75,7 +76,6 @@ Game.prototype.refresh = function() {
 
   for (i = 0; i < this.enemies.length; i++) {
     if (this.enemies[i]) {
-      //console.log(i);
       this.enemies[i].append();
     }
   }
@@ -98,12 +98,9 @@ function randGenerator(n, range) {
 }
 
 Game.prototype.addNewEnemies = function(n) {
-  console.log(cnt);
-  console.log(this.enemiesList[cnt]);
   for (var i = 0; i < this.enemiesList[cnt].directions.length; i++) {
     var direction = parseInt(this.enemiesList[cnt].directions[i] / this.lineCount);
     var position = this.enemiesList[cnt].directions[i] % this.lineCount;
-    console.log(direction, position);
     var x, y;
     switch (direction) {
       case 0:
@@ -122,7 +119,6 @@ Game.prototype.addNewEnemies = function(n) {
         x = rowColToXY(position);
         y = game.size - 30;
     }
-    //console.log(x, y);
     this.enemies.push(new Enemy(x, y, this.enemiesList[cnt].speed, direction));
   }
 
@@ -305,10 +301,11 @@ Enemy.prototype.move = function() {
 };
 
 $(document).one('fail', function() {
-  alert('you failed')
+  alert('you failed');
   document.removeEventListener('keydown', keyMove);
-  setState('fail')
-  ChessPosition(chess.x,chess.y,-1)
+  $("#wrapper").show();
+  setState('fail');
+  ChessPosition(chess.x,chess.y,-1);
 });
 
 $(function() {
@@ -316,4 +313,4 @@ $(function() {
 });
 window.updateUserList = function(){
   ChessPosition(chess.x,chess.y,_Player.name)
-}
+};
