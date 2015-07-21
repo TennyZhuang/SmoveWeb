@@ -1,6 +1,6 @@
 root = exports ? this
 # global settings
-_ref_url = "https://smoveweb.firebaseio.com/"
+_ref_url = "https://kehao.firebaseio.com/"
 _name_input_id = ""
 _usernum_to_colnum = {0:4,1:4,2:5,3:6,4:7,5:7}
 _max_N = 4
@@ -36,13 +36,15 @@ init  = ->
 		snapshot.forEach (childSnapshot) ->
 			_UserList.push(childSnapshot.val())
 			return false
-		updateUserList()
+		#alert('onvalue')
+		console.log('UserListRef.on.val',_UserList)
+		_updateUserList()
 		n = _UserList.length
-		# console.log(_UserList)
+		#console.log(_UserList)
 	# keep a _Chess
 	ChessRef.on 'value',(snapshot) ->
 		root._Chess = snapshot.val()
-		updateChess()
+		_updateChess()
 	# keep player
 	PlayerRef.on 'value',(snapshot) ->
 		root._Player = snapshot.val()
@@ -61,11 +63,14 @@ login = ->
 		nameField.focus()
 	nameField.keypress (e)->
 		if e.keyCode == 13
+			gameProcess(0)
 			name = nameField.val()
 			setName(name)
+			setState('ready')
 			$(loginDiv).remove()
 			$('#canvas').show()
-			game.run();
+			 # set the process and wait the users
+
 
 resetChess = (cols)->
 	ChessRef.set({cols:cols})
@@ -75,12 +80,34 @@ resetChess = (cols)->
 			ChessRef.child(m).set(0)
 
 
+window.gameProcess = (e)->
+	# 0 waiting
+	# 1 in game 
+	# 2 game over
+	if e ==  undefined
+		return window.__gameProcess
+	else 
+		window.__gameProcess = e;
 
-window.updateUserList = ->
+window._updateUserList = ->
 	# add function to update _UserList show
-	
+	# alert('update')
+	console.log('_updateUserList',_UserList)
+	isReady = ->
+		Ready = true
+		console.log(_UserList)
+		for i in _UserList
+			if i.state != 'ready'
+				Ready = false
+		return Ready
+
+	if gameProcess() == 0
+		console.log('isready',isReady())
+		if isReady()
+			alert('game run')
+			game.run()
 	return 
-window.updateChess = ->
+window._updateChess = ->
 	# on _Chess change update _Chess
 	return 
 
@@ -91,6 +118,14 @@ window.setName = (name) ->
 		return false
 	else 
 		PlayerRef.update({name:name})
+		return true
+
+window.setState = (state) ->
+	if (state == "" || state  == undefined)
+		console.error('failed to set state')
+		return false
+	else 
+		PlayerRef.update({state:state})
 		return true
 
 window.getUserList = ->

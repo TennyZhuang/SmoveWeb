@@ -4,7 +4,7 @@
 
   root = typeof exports !== "undefined" && exports !== null ? exports : this;
 
-  _ref_url = "https://smoveweb.firebaseio.com/";
+  _ref_url = "https://kehao.firebaseio.com/";
 
   _name_input_id = "";
 
@@ -51,12 +51,13 @@
         _UserList.push(childSnapshot.val());
         return false;
       });
-      updateUserList();
+      console.log('UserListRef.on.val', _UserList);
+      _updateUserList();
       return n = _UserList.length;
     });
     ChessRef.on('value', function(snapshot) {
       root._Chess = snapshot.val();
-      return updateChess();
+      return _updateChess();
     });
     PlayerRef.on('value', function(snapshot) {
       return root._Player = snapshot.val();
@@ -79,26 +80,27 @@
     return nameField.keypress(function(e) {
       var name;
       if (e.keyCode === 13) {
+        gameProcess(0);
         name = nameField.val();
         setName(name);
+        setState('ready');
         $(loginDiv).remove();
-        $('#canvas').show();
-        return game.run();
+        return $('#canvas').show();
       }
     });
   };
 
   resetChess = function(cols) {
-    var i, m, ref1, results, x, y;
+    var j, m, ref1, results, x, y;
     ChessRef.set({
       cols: cols
     });
     results = [];
-    for (x = i = 0, ref1 = cols - 1; 0 <= ref1 ? i <= ref1 : i >= ref1; x = 0 <= ref1 ? ++i : --i) {
+    for (x = j = 0, ref1 = cols - 1; 0 <= ref1 ? j <= ref1 : j >= ref1; x = 0 <= ref1 ? ++j : --j) {
       results.push((function() {
-        var j, ref2, results1;
+        var k, ref2, results1;
         results1 = [];
-        for (y = j = 0, ref2 = cols - 1; 0 <= ref2 ? j <= ref2 : j >= ref2; y = 0 <= ref2 ? ++j : --j) {
+        for (y = k = 0, ref2 = cols - 1; 0 <= ref2 ? k <= ref2 : k >= ref2; y = 0 <= ref2 ? ++k : --k) {
           m = x + y * cols;
           results1.push(ChessRef.child(m).set(0));
         }
@@ -108,9 +110,39 @@
     return results;
   };
 
-  window.updateUserList = function() {};
+  window.gameProcess = function(e) {
+    if (e === void 0) {
+      return window.__gameProcess;
+    } else {
+      return window.__gameProcess = e;
+    }
+  };
 
-  window.updateChess = function() {};
+  window._updateUserList = function() {
+    var isReady;
+    console.log('_updateUserList', _UserList);
+    isReady = function() {
+      var Ready, i, j, len;
+      Ready = true;
+      console.log(_UserList);
+      for (j = 0, len = _UserList.length; j < len; j++) {
+        i = _UserList[j];
+        if (i.state !== 'ready') {
+          Ready = false;
+        }
+      }
+      return Ready;
+    };
+    if (gameProcess() === 0) {
+      console.log('isready', isReady());
+      if (isReady()) {
+        alert('game run');
+        game.run();
+      }
+    }
+  };
+
+  window._updateChess = function() {};
 
   window.setName = function(name) {
     if (name === "" || name === void 0) {
@@ -119,6 +151,18 @@
     } else {
       PlayerRef.update({
         name: name
+      });
+      return true;
+    }
+  };
+
+  window.setState = function(state) {
+    if (state === "" || state === void 0) {
+      console.error('failed to set state');
+      return false;
+    } else {
+      PlayerRef.update({
+        state: state
       });
       return true;
     }
