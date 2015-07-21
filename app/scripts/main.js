@@ -182,6 +182,7 @@ Game.prototype.enemiesMove = function() {
 
 
 Game.prototype.run = function() {
+  $('audio')[0].play();
   var that = this;
   startTime = new Date().getTime();
   setInterval(that.refresh.bind(that), 30);
