@@ -5,6 +5,8 @@ var chess = new Chess(0, 0);
 var colors = ['#fffde7', '#fff3e0', '#fbe9e7', '#ede7f6', '#e1f5fe', '#e0f7fa'];
 var game;
 var cnt = 0;
+
+var startTime;
 $.getJSON('../level.json', function(data) {
   game = new Game(1, 600, data);
 });
@@ -33,6 +35,7 @@ Game.prototype.refresh = function() {
 
   ctx.strokeStyle = 'white';
   ctx.beginPath();
+
   var i;
   for (i = 0; i < this.lineCount; i++) {
     var end = 200 + this.spacing * i;
@@ -79,6 +82,16 @@ Game.prototype.refresh = function() {
       this.enemies[i].append();
     }
   }
+
+  var timeNow = parseInt((new Date().getTime() - startTime) / 1000);
+  //ctx.strokeStyle = '#616161';
+  ctx.fillStyle = "#bdbdbd";
+  ctx.fillRect(520,20,60,30);
+  ctx.fillStyle = "white";
+  ctx.font="20px sans-serif";
+  ctx.fillText(timeNow,540,45);
+
+  console.log(parseInt((timeNow - startTime) / 1000));
 };
 
 function randGenerator(n, range) {
@@ -172,6 +185,7 @@ Game.prototype.enemiesMove = function() {
 
 Game.prototype.run = function() {
   var that = this;
+  startTime = new Date().getTime();
   setInterval(that.refresh.bind(that), 30);
   setInterval(that.addNewEnemies.bind(that, 3), 3000);
   this.enemiesMove();
@@ -191,6 +205,7 @@ function Chess(x, y) {
 }
 
 Chess.prototype.append = function(color) {
+  //var oldColor = ctx.fillStyle;
   var fillStyle = 'white';
   if (color != undefined)
     fillStyle = color;
@@ -199,6 +214,7 @@ Chess.prototype.append = function(color) {
   ctx.fillStyle = fillStyle;
   ctx.fill();
   ctx.stroke();
+  //ctx.fillStyle = oldColor;
 };
 
 Chess.prototype.move = function(type) {
@@ -301,7 +317,6 @@ Enemy.prototype.move = function() {
 };
 
 $(document).one('fail', function() {
-  alert('you failed');
   document.removeEventListener('keydown', keyMove);
   $("#wrapper").show();
   setState('fail');

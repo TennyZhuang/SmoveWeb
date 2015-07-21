@@ -73,10 +73,6 @@
     });
   };
 
-  window.Alert = function() {
-    return alert('hello');
-  };
-
   window.onTimeRun = function(ts, fn) {
     var timeNow;
     timeNow = new Date().getTime();
@@ -128,7 +124,10 @@
       var overLay;
       overLay = $('<div>').addClass('cover');
 
-      return alert('gameOver');
+      $("#lose").text("Game Over");
+      setTimeout(function() {
+        location.reload();
+      }, 3000);
     };
     if (gameProcess() === 0) {
       if (isReady()) {
