@@ -27,7 +27,7 @@ function Game(num, size, enemiesList) {
 
 Game.prototype.refresh = function() {
   // draw map
-  ctx.fillStyle = colors[parseInt(cnt / 5) % 6];
+  ctx.fillStyle = colors[parseInt(cnt / 8) % 6];
   ctx.fillRect(0, 0, 600, 600);
 
   ctx.fillStyle = '#f57f17';
@@ -71,7 +71,7 @@ Game.prototype.refresh = function() {
   if (ChessPosition(chess.x,chess.y)== -1){
     chess.append('#616161');
   }
-  else{
+  else {
     chess.append('#ff5252');
   }
   
@@ -182,7 +182,7 @@ Game.prototype.enemiesMove = function() {
 
 
 Game.prototype.run = function() {
-  $('audio')[0].play();
+  $('#background-music')[0].play();
   var that = this;
   startTime = new Date().getTime();
   setInterval(that.refresh.bind(that), 30);
@@ -218,11 +218,12 @@ Chess.prototype.append = function(color) {
 
 Chess.prototype.move = function(type) {
   // add remote push
-  var moveTo  =function(x,y) {
+  var moveTo  = function(x,y) {
     if (ChessPosition(x,y) !== 0) return;
     ChessPosition(this.x, this.y, 0);
     this.x = x;
     this.y = y;
+    $('#click-music')[0].play();
     ChessPosition(this.x,this.y,_Player.name)
   };
   
@@ -316,6 +317,7 @@ Enemy.prototype.move = function() {
 };
 
 $(document).one('fail', function() {
+  $('#collision-music')[0].play();
   document.removeEventListener('keydown', keyMove);
   $("#wrapper").show();
   setState('fail');
