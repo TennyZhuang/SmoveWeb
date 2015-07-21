@@ -50,16 +50,27 @@ Game.prototype.refresh = function() {
       var p = ChessPosition(x,y);
       if ( p !== 0) {
         //console.log(x,y);
-
-        (function() {
-          var player = new Chess(x,y);
-          player.append();
-        })();
+        (function(p) {
+          if (p == -1){
+            var player = new Chess(x,y);
+            player.append('#616161');
+            }
+          else{
+            var player = new Chess(x,y);
+            player.append();
+            }
+        })(p);
       }
     }
   }
   // end of add
-  chess.append('#ff5252');
+  if (ChessPosition(chess.x,chess.y)== -1){
+    chess.append('#616161');
+  }
+  else{
+    chess.append('#ff5252');
+  }
+  
 
 
   for (i = 0; i < this.enemies.length; i++) {
@@ -296,6 +307,8 @@ Enemy.prototype.move = function() {
 $(document).one('fail', function() {
   alert('you failed')
   document.removeEventListener('keydown', keyMove);
+  setState('fail')
+  ChessPosition(chess.x,chess.y,-1)
 });
 
 $(function() {

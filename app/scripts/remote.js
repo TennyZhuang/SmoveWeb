@@ -129,7 +129,7 @@
   };
 
   window._updateUserList = function() {
-    var alive, endGame, i, isReady, j, len;
+    var N, alive, endGame, i, isReady, j, k, len, len1;
     console.log('_updateUserList', _UserList);
     isReady = function() {
       var Ready, i, j, len;
@@ -143,9 +143,7 @@
       }
       return Ready;
     };
-    endGame = function() {
-      return $('#canvas').hide();
-    };
+    endGame = function() {};
     if (gameProcess() === 0) {
       console.log('isready', isReady());
       if (isReady()) {
@@ -156,17 +154,32 @@
         game.run();
       }
     }
-    if (gameProcess() === 0) {
-      alive = 0;
-      for (j = 0, len = _UserList.length; j < len; j++) {
-        i = _UserList[j];
-        if (i.state === 'alive') {
-          alive++;
+    if (gameProcess() === 1) {
+      N = _UserList.length;
+      if (_UserList > 1) {
+        alive = 0;
+        for (j = 0, len = _UserList.length; j < len; j++) {
+          i = _UserList[j];
+          if (i.state === 'alive') {
+            alive++;
+          }
         }
-      }
-      console.log('alive:' + alive);
-      if (alive === 1) {
-        endGame();
+        console.log('alive:' + alive);
+        if (alive === 1) {
+          endGame();
+        }
+      } else {
+        alive = 0;
+        for (k = 0, len1 = _UserList.length; k < len1; k++) {
+          i = _UserList[k];
+          if (i.state === 'alive') {
+            alive++;
+          }
+        }
+        console.log('alive:' + alive);
+        if (alive === 0) {
+          endGame();
+        }
       }
     }
   };

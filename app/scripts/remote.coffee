@@ -108,7 +108,7 @@ window._updateUserList = ->
 				Ready = false
 		return Ready
 	endGame = ->
-		$('#canvas').hide()
+		#$('#canvas').hide()
 
 	if gameProcess() == 0
 		console.log('isready',isReady())
@@ -121,14 +121,24 @@ window._updateUserList = ->
 			game.run()
 
 
-	if gameProcess() == 0
-		alive = 0
-		for i in _UserList
-			if i.state == 'alive'
-				alive++
-		console.log ('alive:'+alive)
-		if alive == 1
-			endGame()
+	if gameProcess() == 1
+		N = _UserList.length
+		if _UserList > 1
+			alive = 0
+			for i in _UserList
+				if i.state == 'alive'
+					alive++
+			console.log ('alive:'+alive)
+			if alive == 1
+				endGame()
+		else 
+			alive = 0
+			for i in _UserList
+				if i.state == 'alive'
+					alive++
+			console.log ('alive:'+alive)
+			if alive == 0
+				endGame()
 
 
 
