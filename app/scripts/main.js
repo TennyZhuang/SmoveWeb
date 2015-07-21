@@ -90,8 +90,6 @@ Game.prototype.refresh = function() {
   ctx.fillStyle = "white";
   ctx.font="20px sans-serif";
   ctx.fillText(timeNow,540,45);
-
-  console.log(parseInt((timeNow - startTime) / 1000));
 };
 
 function randGenerator(n, range) {
