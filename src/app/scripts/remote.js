@@ -35,8 +35,13 @@
     UserListRef.on('value', function(snapshot) {
       var n;
       root._UserList = [];
+      unReadyUsers = [];
       snapshot.forEach(function(childSnapshot) {
         _UserList.push(childSnapshot.val());
+        if(childSnapshot.val().state !== 'ready')
+        {
+          unReadyUsers.push(childSnapshot.ref());
+        }
         return false;
       });
       _updateUserList();
@@ -54,6 +59,12 @@
   };
 
   login = function() {
+    var cleanUnReady = function(){
+      // TODO
+      for (i = 0 ;i< unReadyUsers.length;i++){
+        unReadyUsers[i].set({})
+      };
+    } 
     var nameField;
     $('canvas').hide();
     LoginDiv = $('#loginDiv')[0];
@@ -74,7 +85,7 @@
         setName(name);
         setState('ready');
         if($('#ClearOther').length == 0) {
-        button = $('<button>').attr('id','ClearOther').text('清除未准备用户');
+        button = $('<button>').attr('id','ClearOther').text('清除未准备用户').click(cleanUnReady)
         $("#loginDiv").append(button);
         $("#loginDiv").append($('<p>').append("Hello " + name + " please wait for  players"));
         }
@@ -137,6 +148,7 @@
       var $rank = $('#rank');
 
       $("#lose").text("Game Over");
+      $('#rank').append($('li').text('hello'))
       $('#restart').click(function() {
         location.reload();
       })
