@@ -2,13 +2,14 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="3b5b11c6-bd83-471b-8566-afed21a8e39c" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/click.mp3" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/click.ogg" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/collision.mp3" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/collision.ogg" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/click.mp3" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/click.ogg" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/collision.mp3" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/collision.ogg" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/this_game.mp3" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/this_game.ogg" afterPath="" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/gulpfile.babel.js" afterPath="$PROJECT_DIR$/gulpfile.babel.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/index.html" afterPath="$PROJECT_DIR$/app/index.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/scripts/main.js" afterPath="$PROJECT_DIR$/app/scripts/main.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="SmoveWeb.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -29,11 +30,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="index.html" pinned="false" current-in-tab="false">
+      <file leaf-file-name="index.html" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/index.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-10.958333">
-              <caret line="51" column="52" selection-start-line="51" selection-start-column="52" selection-end-line="51" selection-end-column="52" />
+            <state vertical-scroll-proportion="0.5783309">
+              <caret line="51" column="59" selection-start-line="51" selection-start-column="59" selection-end-line="51" selection-end-column="59" />
               <folding />
             </state>
           </provider>
@@ -49,10 +50,10 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="main.js" pinned="false" current-in-tab="true">
+      <file leaf-file-name="main.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/scripts/main.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.6393211">
+            <state vertical-scroll-proportion="0.0">
               <caret line="319" column="34" selection-start-line="319" selection-start-column="34" selection-end-line="319" selection-end-column="34" />
               <folding />
             </state>
@@ -79,8 +80,8 @@
       <list>
         <option value="$PROJECT_DIR$/app/styles/main.css" />
         <option value="$PROJECT_DIR$/app/scripts/remote.js" />
-        <option value="$PROJECT_DIR$/app/index.html" />
         <option value="$PROJECT_DIR$/app/scripts/main.js" />
+        <option value="$PROJECT_DIR$/app/index.html" />
       </list>
     </option>
   </component>
@@ -409,14 +410,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/index.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-10.958333">
-          <caret line="51" column="52" selection-start-line="51" selection-start-column="52" selection-end-line="51" selection-end-column="52" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/scripts/remote.js">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
@@ -427,8 +420,16 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/app/scripts/main.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.6393211">
+        <state vertical-scroll-proportion="0.0">
           <caret line="319" column="34" selection-start-line="319" selection-start-column="34" selection-end-line="319" selection-end-column="34" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/index.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.5783309">
+          <caret line="51" column="59" selection-start-line="51" selection-start-column="59" selection-end-line="51" selection-end-column="59" />
           <folding />
         </state>
       </provider>
