@@ -7,7 +7,7 @@ var game;
 var cnt = 0;
 
 var startTime;
-$.getJSON('../level.json', function(data) {
+$.getJSON('../level.json', function (data) {
   game = new Game(1, 600, data);
 });
 
@@ -25,13 +25,17 @@ function Game(num, size, enemiesList) {
   this.enemiesList = enemiesList;
 }
 
-Game.prototype.refresh = function() {
+Game.prototype.refresh = function () {
   // draw map
+  if (document.visibilityState === 'hidden') {
+    return;
+  }
+
   ctx.fillStyle = colors[parseInt(cnt / 8) % 6];
   ctx.fillRect(0, 0, 600, 600);
 
   ctx.fillStyle = '#f57f17';
-  ctx.fillRect(200,200,200,200);
+  ctx.fillRect(200, 200, 200, 200);
 
   ctx.strokeStyle = 'white';
   ctx.beginPath();
@@ -48,19 +52,19 @@ Game.prototype.refresh = function() {
   ctx.closePath();
 
   // add players
-  var x,y;
-  for (x = 0;x<this.lineCount;x++) {
-    for (y = 0;y<this.lineCount;y++) {
-      var p = ChessPosition(x,y);
-      if ( p !== 0) {
-        (function(p) {
+  var x, y;
+  for (x = 0; x < this.lineCount; x++) {
+    for (y = 0; y < this.lineCount; y++) {
+      var p = ChessPosition(x, y);
+      if (p !== 0) {
+        (function (p) {
           var player;
-          if (p == -1){
-            player = new Chess(x,y);
+          if (p == -1) {
+            player = new Chess(x, y);
             player.append('#616161');
           }
           else {
-            player = new Chess(x,y);
+            player = new Chess(x, y);
             player.append();
           }
         })(p);
@@ -68,13 +72,12 @@ Game.prototype.refresh = function() {
     }
   }
   // end of add
-  if (ChessPosition(chess.x,chess.y)== -1){
+  if (ChessPosition(chess.x, chess.y) == -1) {
     chess.append('#616161');
   }
   else {
     chess.append('#ff5252');
   }
-  
 
 
   for (i = 0; i < this.enemies.length; i++) {
@@ -86,29 +89,14 @@ Game.prototype.refresh = function() {
   var timeNow = parseInt((new Date().getTime() - startTime) / 1000);
   //ctx.strokeStyle = '#616161';
   ctx.fillStyle = "#bdbdbd";
-  ctx.fillRect(520,20,60,30);
+  ctx.fillRect(520, 20, 60, 30);
   ctx.fillStyle = "white";
-  ctx.font="20px sans-serif";
-  ctx.fillText(timeNow,540,45);
+  ctx.font = "20px sans-serif";
+  ctx.fillText(timeNow, 540, 45);
 };
 
-function randGenerator(n, range) {
-  var arr = [];
-  while(arr.length < n){
-    var randomNumber = parseInt(Math.random() * range);
-    var found = false;
-    for(var i = 0; i < arr.length;i++){
-      if(arr[i] === randomNumber) {
-        found = true;
-        break;
-      }
-    }
-    if(!found)arr[arr.length]=randomNumber;
-  }
-  return arr;
-}
-
-Game.prototype.addNewEnemies = function(n) {
+Game.prototype.addNewEnemies = function (n) {
+  cnt = cnt % this.enemiesList.length;
   for (var i = 0; i < this.enemiesList[cnt].directions.length; i++) {
     var direction = parseInt(this.enemiesList[cnt].directions[i] / this.lineCount);
     var position = this.enemiesList[cnt].directions[i] % this.lineCount;
@@ -134,44 +122,12 @@ Game.prototype.addNewEnemies = function(n) {
   }
 
   cnt++;
-
-  //var cols = randGenerator(n, game.lineCount);
-  //var rows = randGenerator(n, game.lineCount);
-  //var directions = randGenerator(n, 4);
-  //for (var i = 0; i < n + 1; i++) {
-  //  var x, y;
-  //  switch (directions[i]) {
-  //    case 0:
-  //      // from right
-  //      x = game.size - 30;
-  //      y = rowColToXY(rows[i]);
-  //      break;
-  //    case 1:
-  //      // from down
-  //      y = 30;
-  //      x = rowColToXY(cols[i]);
-  //      break;
-  //    case 2:
-  //      // from left
-  //      x = 30;
-  //      y = rowColToXY(rows[i]);
-  //      break;
-  //    case 3:
-  //      // from top
-  //      y = game.size - 30;
-  //      x = rowColToXY(cols[i]);
-  //      break;
-  //    default:
-  //      return;
-  //  }
-  //  this.enemies.push(new Enemy(x, y, speed, directions[i]));
-  //}
 };
 
-Game.prototype.enemiesMove = function() {
+Game.prototype.enemiesMove = function () {
   var that = this;
-  setInterval(function() {
-    for (var i = 0; i < that.enemies.length; i++){
+  setInterval(function () {
+    for (var i = 0; i < that.enemies.length; i++) {
       if (!that.enemies[i]) continue;
       if (!that.enemies[i].move()) {
         delete that.enemies[i];
@@ -181,7 +137,7 @@ Game.prototype.enemiesMove = function() {
 };
 
 
-Game.prototype.run = function() {
+Game.prototype.run = function () {
   $('#background-music')[0].play();
   var that = this;
   startTime = new Date().getTime();
@@ -203,8 +159,7 @@ function Chess(x, y) {
   //ChessPosition(this.x,this.y,_Player.name)
 }
 
-Chess.prototype.append = function(color) {
-  //var oldColor = ctx.fillStyle;
+Chess.prototype.append = function (color) {
   var fillStyle = 'white';
   if (color != undefined)
     fillStyle = color;
@@ -213,21 +168,20 @@ Chess.prototype.append = function(color) {
   ctx.fillStyle = fillStyle;
   ctx.fill();
   ctx.stroke();
-  //ctx.fillStyle = oldColor;
 };
 
-Chess.prototype.move = function(type) {
+Chess.prototype.move = function (type) {
   // add remote push
-  var moveTo  = function(x,y) {
-    if (ChessPosition(x,y) !== 0) return;
+  var moveTo = function (x, y) {
+    if (ChessPosition(x, y) !== 0) return;
     ChessPosition(this.x, this.y, 0);
     this.x = x;
     this.y = y;
     $('#click-music')[0].play();
-    ChessPosition(this.x,this.y,_Player.name)
+    ChessPosition(this.x, this.y, _Player.name)
   };
-  
-    switch(type) {
+
+  switch (type) {
     case 1:
       // Up
       if (this.y === 0) return;
@@ -236,17 +190,17 @@ Chess.prototype.move = function(type) {
     case 2:
       // Right
       if (this.x === game.lineCount - 1) return;
-      moveTo.call(this,this.x+1,this.y);
+      moveTo.call(this, this.x + 1, this.y);
       break;
     case 3:
       // Down
       if (this.y === game.lineCount - 1) return;
-      moveTo.call(this,this.x,this.y+1);
+      moveTo.call(this, this.x, this.y + 1);
       break;
     case 0:
       // LEFT
       if (this.x === 0) return;
-      moveTo.call(this,this.x-1,this.y);
+      moveTo.call(this, this.x - 1, this.y);
       break;
     default:
       return;
@@ -254,7 +208,7 @@ Chess.prototype.move = function(type) {
   // end of add 
 };
 
-function keyMove(event){
+function keyMove(event) {
   var key = event.keyCode;
   if (key < 37 || key > 40) return;
 
@@ -270,7 +224,7 @@ function Enemy(x, y, speed, direction) {
   this.direction = direction;
 }
 
-Enemy.prototype.append = function() {
+Enemy.prototype.append = function () {
   ctx.beginPath();
   ctx.arc(this.x, this.y, game.spacing * 0.35, 0, 2 * Math.PI);
   ctx.fillStyle = 'black';
@@ -278,7 +232,7 @@ Enemy.prototype.append = function() {
   ctx.stroke();
 };
 
-Enemy.prototype.move = function() {
+Enemy.prototype.move = function () {
   switch (this.direction) {
     case 0:
       if (this.x < 20) {
@@ -316,17 +270,14 @@ Enemy.prototype.move = function() {
   return true;
 };
 
-$(document).one('fail', function() {
+$(document).one('fail', function () {
   $('#collision-music')[0].play();
   document.removeEventListener('keydown', keyMove);
   $("#wrapper").show();
   setState('fail');
-  ChessPosition(chess.x,chess.y,-1);
+  ChessPosition(chess.x, chess.y, -1);
 });
 
-$(function() {
-  
-});
-window.updateUserList = function(){
-  ChessPosition(chess.x,chess.y,_Player.name)
+window.updateUserList = function () {
+  ChessPosition(chess.x, chess.y, _Player.name)
 };
