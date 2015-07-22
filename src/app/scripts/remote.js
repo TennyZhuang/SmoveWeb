@@ -1,4 +1,4 @@
-(function() {
+(function () {
   var _ref_url, init, login, resetChess, root;
 
   root = typeof exports !== "undefined" && exports !== null ? exports : this;
@@ -6,17 +6,17 @@
   _ref_url = "https://smoveweb.firebaseio.com/";
 
   /*
-  	_UserList 	#idxxx :{name}
-  				#idxxx :{name}
-   	ChessRef	N --- 1..4
-  				0:player
-  				(...):
-  				N^2-1:player
-  		
-  player =={0,name1,name2...}
+   _UserList 	#idxxx :{name}
+   #idxxx :{name}
+   ChessRef	N --- 1..4
+   0:player
+   (...):
+   N^2-1:player
+
+   player =={0,name1,name2...}
    */
 
-  init = function() {
+  init = function () {
     root.BaseRef = new Firebase(_ref_url);
     root.UserListRef = BaseRef.child('UserList');
     root.ChessRef = BaseRef.child('Chess');
@@ -32,52 +32,53 @@
     root._UserList = void 0;
     root._Chess = void 0;
     root._Player = void 0;
-    UserListRef.on('value', function(snapshot) {
+    UserListRef.on('value', function (snapshot) {
       var n;
       root._UserList = [];
       unReadyUsers = [];
       aliveUsers = [];
-      snapshot.forEach(function(childSnapshot) {
+      snapshot.forEach(function (childSnapshot) {
         _UserList.push(childSnapshot.val());
-        if(childSnapshot.val().state !== 'ready')
-        {
+        if (childSnapshot.val().state !== 'ready') {
           unReadyUsers.push(childSnapshot.ref());
         }
         if (childSnapshot.val().state === 'alive') {
           aliveUsers.push(childSnapshot.ref());
-        };
+        }
+        ;
         return false;
       });
       _updateUserList();
       return n = _UserList.length;
     });
-    ChessRef.on('value', function(snapshot) {
+    ChessRef.on('value', function (snapshot) {
       root._Chess = snapshot.val();
       return _updateChess();
     });
-    PlayerRef.on('value', function(snapshot) {
+    PlayerRef.on('value', function (snapshot) {
       return root._Player = snapshot.val();
     });
     login();
     return resetChess(6);
   };
 
-  login = function() {
-    var cleanUnReady = function(){
+  login = function () {
+    var cleanUnReady = function () {
       // TODO
-      for (i = 0 ;i< unReadyUsers.length;i++){
+      for (i = 0; i < unReadyUsers.length; i++) {
         unReadyUsers[i].set({})
-      };
-    } 
+      }
+      ;
+    }
     var nameField;
     $('canvas').hide();
     LoginDiv = $('#loginDiv')[0];
     nameField = $('#nameInput');
     nameField.focus();
-    nameField.blur(function() {
+    nameField.blur(function () {
       return nameField.focus();
     });
-    return nameField.keypress(function(e) {
+    return nameField.keypress(function (e) {
       var name;
       if (e.keyCode === 13) {
         if (!nameField.val().trim()) {
@@ -88,17 +89,18 @@
         name = nameField.val();
         setName(name);
         setState('ready');
-        if($('#ClearOther').length == 0 && aliveUsers.length === 0) {
-        button = $('<button>').attr('id','ClearOther').text('清除未准备用户').click(cleanUnReady)
-        $("#loginDiv").append(button);
-        $("#loginDiv").append($('<p>').append("Hello " + name + " please wait for  players"));
+        if ($('#clear-other').length == 0 && aliveUsers.length === 0) {
+          button = $('<button>').attr('id', 'clear-other').text('清除未准备用户').click(cleanUnReady);
+          var $loginDiv = $('#loginDiv');
+          $loginDiv.append(button);
+          $loginDiv.append($('<p>').append("Hello " + name + " please wait for  players"));
         }
-        else if (aliveUsers.length !== 0){
-          if ($("#loginDiv").find('p').length === 0){
+        else if (aliveUsers.length !== 0) {
+          if ($("#loginDiv").find('p').length === 0) {
             $("#loginDiv").append($('<p>').append("thers are other players playing please wait"));
           }
         }
-        else{
+        else {
           $("#loginDiv").find('p').text("Hello " + name + " please wait for  players");
         }
 
@@ -106,20 +108,20 @@
     });
   };
 
-  window.onTimeRun = function(ts, fn) {
+  window.onTimeRun = function (ts, fn) {
     var timeNow;
     timeNow = new Date().getTime();
     return window.setTimeout(fn, ts - timeNow);
   };
 
-  resetChess = function(cols) {
+  resetChess = function (cols) {
     var j, m, ref1, results, x, y;
     ChessRef.set({
       cols: cols
     });
     results = [];
     for (x = j = 0, ref1 = cols - 1; 0 <= ref1 ? j <= ref1 : j >= ref1; x = 0 <= ref1 ? ++j : --j) {
-      results.push((function() {
+      results.push((function () {
         var k, ref2, results1;
         results1 = [];
         for (y = k = 0, ref2 = cols - 1; 0 <= ref2 ? k <= ref2 : k >= ref2; y = 0 <= ref2 ? ++k : --k) {
@@ -132,7 +134,7 @@
     return results;
   };
 
-  window.gameProcess = function(e) {
+  window.gameProcess = function (e) {
     if (e === void 0) {
       return window.__gameProcess;
     } else {
@@ -140,9 +142,9 @@
     }
   };
 
-  window._updateUserList = function() {
+  window._updateUserList = function () {
     var N, alive, endGame, i, isReady, j, k, len, len1;
-    isReady = function() {
+    isReady = function () {
       var Ready, i, j, len;
       Ready = true;
       for (j = 0, len = _UserList.length; j < len; j++) {
@@ -153,11 +155,11 @@
       }
       return Ready;
     };
-    endGame = function() {
+    endGame = function () {
       var $rank = $('#rank');
 
       $("#lose").text("Game Over");
-      $('#restart').click(function() {
+      $('#restart').click(function () {
         location.reload();
       })
     };
@@ -198,9 +200,10 @@
     }
   };
 
-  window._updateChess = function() {};
+  window._updateChess = function () {
+  };
 
-  window.setName = function(name) {
+  window.setName = function (name) {
     if (name === "" || name === void 0) {
       console.error('failed to set name');
       return false;
@@ -212,7 +215,7 @@
     }
   };
 
-  window.setState = function(state) {
+  window.setState = function (state) {
     if (state === "" || state === void 0) {
       console.error('failed to set state');
       return false;
@@ -224,27 +227,27 @@
     }
   };
 
-  window.setScore = function(score) {
+  window.setScore = function (score) {
     PlayerRef.update({score: score});
   };
 
-  window.getUserList = function() {
+  window.getUserList = function () {
     return _UserList;
   };
 
-  window.getChess = function() {
+  window.getChess = function () {
     return _Chess;
   };
 
-  window.getPlayer = function() {
+  window.getPlayer = function () {
     return _Player;
   };
 
-  window.getUserRefByName = function(name) {
-    return UserListRef.on('value', function(snapshot) {
+  window.getUserRefByName = function (name) {
+    return UserListRef.on('value', function (snapshot) {
       var ref;
       ref = null;
-      return snapshot.forEach(childSnapshot)(function() {
+      return snapshot.forEach(childSnapshot)(function () {
         if (childSnapshot.name === name) {
           return childSnapshot.ref();
         } else {
@@ -254,7 +257,7 @@
     });
   };
 
-  window.ChessPosition = function(x, y, set) {
+  window.ChessPosition = function (x, y, set) {
     var n;
     n = x + (_Chess.cols * y);
     if (set === void 0) {
@@ -265,7 +268,7 @@
     }
   };
 
-  window.PlayerState = function(s) {
+  window.PlayerState = function (s) {
     if (s === void 0) {
       return CurrentState;
     } else {

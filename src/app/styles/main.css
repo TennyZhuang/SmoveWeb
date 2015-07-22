@@ -58,8 +58,21 @@ canvas {
   width: 100%;
 }
 
-#nameInput{
+#nameInput {
 
+}
+
+#clear-other {
+  height: 27px;
+  border-radius: 10px;
+  background: transparent;
+  border: none;
+  padding: 0 20px;
+}
+
+#clear-other:hover {
+  background: white;
+  color: #ba68c8;
 }
 
 .body {
