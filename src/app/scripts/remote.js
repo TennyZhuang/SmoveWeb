@@ -36,12 +36,16 @@
       var n;
       root._UserList = [];
       unReadyUsers = [];
+      aliveUsers = [];
       snapshot.forEach(function(childSnapshot) {
         _UserList.push(childSnapshot.val());
         if(childSnapshot.val().state !== 'ready')
         {
           unReadyUsers.push(childSnapshot.ref());
         }
+        if (childSnapshot.val().state === 'alive') {
+          aliveUsers.push(childSnapshot.ref());
+        };
         return false;
       });
       _updateUserList();
@@ -84,10 +88,15 @@
         name = nameField.val();
         setName(name);
         setState('ready');
-        if($('#ClearOther').length == 0) {
+        if($('#ClearOther').length == 0 && aliveUsers.length === 0) {
         button = $('<button>').attr('id','ClearOther').text('清除未准备用户').click(cleanUnReady)
         $("#loginDiv").append(button);
         $("#loginDiv").append($('<p>').append("Hello " + name + " please wait for  players"));
+        }
+        else if (aliveUsers.length !== 0){
+          if ($("#loginDiv").find('p').length === 0){
+            $("#loginDiv").append($('<p>').append("thers are other players playing please wait"));
+          }
         }
         else{
           $("#loginDiv").find('p').text("Hello " + name + " please wait for  players");
@@ -148,7 +157,6 @@
       var $rank = $('#rank');
 
       $("#lose").text("Game Over");
-      $('#rank').append($('li').text('hello'))
       $('#restart').click(function() {
         location.reload();
       })
