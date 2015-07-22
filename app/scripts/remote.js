@@ -126,8 +126,7 @@
       return Ready;
     };
     endGame = function() {
-      var overLay;
-      overLay = $('<div>').addClass('cover');
+      var $rank = $('#rank');
 
       $("#lose").text("Game Over");
       $('#restart').click(function() {
