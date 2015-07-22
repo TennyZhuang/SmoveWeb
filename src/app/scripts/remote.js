@@ -73,7 +73,15 @@
         name = nameField.val();
         setName(name);
         setState('ready');
-        $("#loginDiv").append($('<p>').append("Hello " + name + " please wait for other players"));
+        if($('#ClearOther').length == 0) {
+        button = $('<button>').attr('id','ClearOther').text('清除未准备用户');
+        $("#loginDiv").append(button);
+        $("#loginDiv").append($('<p>').append("Hello " + name + " please wait for  players"));
+        }
+        else{
+          $("#loginDiv").find('p').text("Hello " + name + " please wait for  players");
+        }
+
       }
     });
   };
