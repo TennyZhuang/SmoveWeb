@@ -197,6 +197,10 @@
     }
   };
 
+  window.setScore = function(score) {
+    PlayerRef.update({score: score});
+  };
+
   window.getUserList = function() {
     return _UserList;
   };

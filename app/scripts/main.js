@@ -275,6 +275,8 @@ $(document).one('fail', function () {
   document.removeEventListener('keydown', keyMove);
   $("#wrapper").show();
   setState('fail');
+  var timeNow = parseInt((new Date().getTime() - startTime) / 1000);
+  setScore(timeNow);
   ChessPosition(chess.x, chess.y, -1);
 });
 
